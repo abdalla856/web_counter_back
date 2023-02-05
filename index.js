@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 const http = require("http");
 const socketio = require("socket.io");
 const server = http.createServer(app);
-const io = socketio(server, { cors: { origin: "*" } });
+const io = socketio(server, { cors: { origin: "https://counterbackl.onrender.com" } });
 
 const ticketRoute = require("./routes/ticket.routes");
 const PORT = 5000;
