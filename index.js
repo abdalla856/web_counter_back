@@ -7,8 +7,7 @@ const cors = require("cors");
 app.use(bodyParser.json());
 const http = require("http");
 const socketio = require("socket.io");
-const server = http.createServer(app);
-const io = socketio(server, { cors: { origin: "https://counterbackl.onrender.com" } });
+// const server = http.createServer(app);
 
 const ticketRoute = require("./routes/ticket.routes");
 const PORT = 5000;
@@ -35,6 +34,14 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
+
+
+const server = app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+const io = socketio(server, { cors: { origin: "*" } });
+
 io.on("connection", (socket) => {
   console.log("A user has connected");
 
@@ -51,8 +58,4 @@ io.on("connection", (socket) => {
   socket.on("next" , counters =>{
     io.emit("next" , counters)
   }) 
-});
-
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
 });
