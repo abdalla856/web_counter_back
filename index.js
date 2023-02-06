@@ -34,13 +34,11 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
-
-
 const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-const io = socketio(server, { cors: { origin: "*" } } , { allowEIO3: true});
+const io = socketio(server, { cors: { origin: "*" } }, { allowEIO3: true });
 
 io.on("connection", (socket) => {
   console.log("A user has connected");
@@ -50,11 +48,13 @@ io.on("connection", (socket) => {
   });
 
   socket.on("new-ticket", (ticketnum) => {
-    console.log("new ticket taken")
+    console.log("new ticket taken");
     io.emit("new-ticket", ticketnum);
   });
 
-  socket.on("next" , counters =>{
-    io.emit("next" , counters)
-  }) 
+  socket.on("next", (counters) => {
+    console.log("new counter taken");
+
+    io.emit("next", counters);
+  });
 });
