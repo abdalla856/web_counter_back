@@ -40,7 +40,7 @@ const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-const io = socketio(server, { cors: { origin: "*" } });
+const io = socketio(server, { cors: { origin: "*" } } , { allowEIO3: true});
 
 io.on("connection", (socket) => {
   console.log("A user has connected");
@@ -50,11 +50,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("new-ticket", (ticketnum) => {
+    console.log("new ticket taken")
     io.emit("new-ticket", ticketnum);
   });
-  socket.on("new-ticket", (ticketnum) => {
-    io.emit("new-ticket", ticketnum);
-  });
+
   socket.on("next" , counters =>{
     io.emit("next" , counters)
   }) 
